@@ -70,22 +70,33 @@ public class LMSDiscreteScheduler : SchedulerBase
 
         double IntegrateOverInterval(Func<double, double> f, double intervalStart, double intervalEnd)
         {
-            var stepCount = 1000;
+            var stepCount = 100;
             var stepSize = (intervalEnd - intervalStart) / stepCount;
             // var stepSize = 1e-4;
 
             double result = 0.0;
-            for (var value = intervalStart; value < intervalEnd; value += stepSize)
+            if (stepSize > 0)
             {
-                result += f(value) * stepSize;
+                for (var value = intervalStart; value < intervalEnd; value += stepSize)
+                {
+                    result += f(value) * stepSize;
+                }
+            }
+            else // intervalStart > intervalEnd
+            {
+                for (var value = intervalStart; value > intervalEnd; value += stepSize)
+                {
+                    result += f(value) * stepSize;
+                }
             }
 
             return result;
         }
 
         // double integratedCoeff = IntegrateOverInterval(LmsDerivative, this.Sigmas[t], this.Sigmas[t + 1]);
-        double integratedCoeff = Integrate.OnClosedInterval(LmsDerivative, this.Sigmas[t], this.Sigmas[t + 1], 1e-4);
-
+        // double integratedCoeff = Integrate.OnClosedInterval(LmsDerivative, this.Sigmas[t], this.Sigmas[t + 1], 1e-4);
+        double integratedCoeff = IntegrateOverInterval(LmsDerivative, this.Sigmas[t], this.Sigmas[t + 1]);
+        
         return integratedCoeff;
     }
     

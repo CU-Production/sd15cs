@@ -9,7 +9,9 @@ namespace StableDiffusion
             System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
 
             //Default args
-            var prompt = "a fireplace in an old cabin in the woods";
+            // var prompt = "a fireplace in an old cabin in the woods";
+            // var prompt = "a photo of an astronaut riding a horse on mars";
+            var prompt = "a photo of a gril in a church";
             Console.WriteLine(prompt);
 
             var config = new StableDiffusionConfig();
