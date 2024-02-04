@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+      <PackageReference Include="Microsoft.AI.DirectML" Version="1.12.1" />
+      <PackageReference Include="Microsoft.ML.OnnxRuntime.DirectML" Version="1.16.3" />
+      <PackageReference Include="Microsoft.ML.OnnxRuntime.Extensions" Version="0.9.0" />
+      <PackageReference Include="NumSharp" Version="0.30.0" />
+      <PackageReference Include="SixLabors.ImageSharp" Version="3.1.2" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="Copy $(ProjectDir)cliptokenizer.onnx  $(OutputPath)cliptokenizer.onnx&#xA;Copy $(ProjectDir)dml\DirectML.dll  $(OutputPath)DirectML.dll&#xA;" />
+    </Target>
+
+</Project>
